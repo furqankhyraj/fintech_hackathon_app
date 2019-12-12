@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+	<head>
+		<title>Chat</title>
+		<script src="{% static 'js/jquery.min.js' %}"></script>
+		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+		<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+		<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.js"></script>
+	</head>
+
+	<body>
+		<div class="loading_div" style="display:none"><img src="{% static 'images/robot_loading.gif' %}" ></div>
+    <script type="text/javascript">
+    $(document).ready(function() {
+
+
+    $('.send_buttton').click(function(){
+      var data = $('.type_msg').val()
+
+      text = '<div class="d-flex justify-content-end mb-4"><div class="msg_cotainer_send">'+data+'<span class="msg_time_send">9:10 AM, Today</span></div><div class="img_cont_msg"><img src="/static/images/boy-cartoon-3D-model_D.jpg" class="rounded-circle user_img_msg"></div></div>';
+      $('.msg_card_body').append(text);
+			$('.type_msg').val('');
+			var loadingDiv = $('.loading_div').html()
+			$('.msg_card_body').append("<div id='loading'>"+loadingDiv+"</div>")
+      $.ajax(
+      {
+          type:"GET",
+          url: "/bot/api",
+          data:{
+                   text: data
+          },
+          success: function( data )
+          {
+						$('#loading').remove();
+            resp_div = '<div class="d-flex justify-content-start mb-4"><div class="img_cont_msg"><img src="/static/images/_D.jpg" class="rounded-circle user_img_msg"></div><div class="msg_cotainer">'+data+'<span class="msg_time">9:12 AM, Today</span></div></div>';
+              $('.msg_card_body').append(resp_div)
+          }
+       })
+
+    });
+
+    $('.type_msg').on("keypress", function(e) {
+            /* ENTER PRESSED*/
+            if (e.keyCode == 13) {
+              alert('etner pressed')
+            }
+          });
+    });
+
+
+    </script>
+		<div class="container-fluid h-100">
+			<div class="row justify-content-center h-100">
+
+				<div class="col-md-12 col-xl-12 chat">
+					<div class="card">
+						<div class="card-header msg_head">
+							<div class="d-flex bd-highlight">
+								<div class="img_cont">
+									<img src="{% static 'images/_D.jpg' %}" class="rounded-circle user_img">
+									<span class="online_icon"></span>
+								</div>
+								<div class="user_info">
+									<span>Chat with Financial Bot</span>
+
+								</div>
+
+							</div>
+
+						</div>
+						<div class="card-body msg_card_body">
+							<div class="d-flex justify-content-start mb-4">
+								<div class="img_cont_msg">
+									<img src="{% static 'images/_D.jpg' %}" class="rounded-circle user_img_msg">
+								</div>
+								<div class="msg_cotainer">
+									Hi, how you doing today?
+									<span class="msg_time">8:40 AM, Today</span>
+								</div>
+							</div>
+
+
+
+
+
+						</div>
+						<div class="card-footer">
+							<div class="input-group">
+								<div class="input-group-append">
+									<span class="input-group-text attach_btn"><i class="fas fa-paperclip"></i></span>
+								</div>
+								<textarea name="" class="form-control type_msg" placeholder="Type your message..."></textarea>
+								<div class="input-group-append send_buttton">
+									<span class="input-group-text send_btn"><i class="fas fa-location-arrow"></i></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

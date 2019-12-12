@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Financial Bot</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+  </head>
+  <body>
+    <header>
+      {% block hstart %}
+      <head>
+          <nav class="navbar navbar-expand-lg navbar-light bg-light">
+              <span class="navbar-brand mb-0 h1">FinBot - Next Level Artificial Intelligence</span>
+          </nav>
+      </head>
+
+      <h6>
+          <nav class="navbar navbar-expand-lg navbar-light">
+
+          </nav>
+      </h6>
+
+      <div class="btn-toolbar" role="toolbar">
+
+          <form action="/bot/login">
+              <button type="submit" class="btn btn-primary">SSO Login</button>
+          </form>
+
+          <!-- <form action="/bot/results">
+              <button type="submit" class="btn btn-secondary">Get Data</button>
+          </form>
+
+          <form action="/bot/logout">
+              <button type="submit" class="btn btn-danger">Remove Access Token</button>
+          </form>
+          <form action="/bot/balance">
+              <button type="submit" class="btn btn-secondary">Account Balance</button>
+          </form> -->
+      </div>
+
+      <hr>
+      {% endblock %}
+    </header>
+    {% block content_start %}
+    {% endblock %}
+
+    <footer>
+      {% block footer_start %}
+      {% endblock %}
+    </footer>
+  </body>
+</html>
